@@ -10,8 +10,8 @@ html_strip = analyzer(
 
 
 class Product(DocType):
-    product_version_id = Integer()
     product_id = Integer()
+    product_version_id = Integer()
     brand_id = Integer()
     brand = Text()
     category_ids = Integer(multi=True)
@@ -21,6 +21,7 @@ class Product(DocType):
     model = Text()
     model_number_complete = Text()
     season = Text()
+    sizes = Text()
     price_eur = Float()
     sale_price_eur = Float()
     discount_percentage = Integer()

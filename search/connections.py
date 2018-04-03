@@ -29,3 +29,10 @@ def db_connect():
         db='italist'
     )
     return db
+
+
+def db_close():
+    global db
+    if db:
+        db.close()
+        db = None

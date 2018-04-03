@@ -1,5 +1,6 @@
 from elasticsearch_dsl import DocType, analyzer, Text, Integer, Float, Date
 
+
 html_strip = analyzer(
     'html_strip',
     tokenizer="standard",
@@ -15,6 +16,7 @@ class Product(DocType):
     brand = Text()
     category_ids = Integer(multi=True)
     categories = Text()
+    images = Text(index=False)
     gender = Text()
     model = Text()
     model_number_complete = Text()

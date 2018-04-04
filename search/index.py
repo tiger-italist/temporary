@@ -1,6 +1,24 @@
+from re import split
 from elasticsearch_dsl import Index
 from model.product import Product
 from search.connections import es_connect, db_connect, db_close
+
+
+def _format_season(season, year):
+    formatted_season = 'SS' if season == 'P/E' else 'FW' if season == 'A/I' else None
+    formatted_year = split('\\D', year.strip())[0][-2:]
+    if formatted_season and formatted_year:
+        return '{}{}'.format(formatted_season, formatted_year)
+    else:
+        return 'Classic'
+
+
+def _format_gender(gender_id):
+    return 'M' if gender_id == 1 else 'F' if gender_id == 2 else 'M F'
+
+
+def _format_sizes(sizes, quantities):
+    pass
 
 
 def create_product_index():
@@ -28,13 +46,13 @@ def index_product(
     product.category_ids = category_ids
     product.categories = categories
     product.images = '{} {}'.format(image1, image2)
-    product.gender = Text()
+    product.gender = _format_gender(gender_id)
     product.model = model
     product.model_number_complete = model_number_complete
-    product.season = Text()
-    product.sizes = Text()
+    product.season = _format_season(season, year)
+    product.sizes = _format_sizes(sizes, quantities)
     product.price_eur = rrp_eur_ex_tax
-    product.sale_price_eur = Float()
+    product.sale_price_eur = round(rrp_eur_ex_tax * (100 - reduction) / 100.0, 2) if reduction else rrp_eur_ex_tax
     product.discount_percentage = reduction
     product.description = description
     product.insert_time = pv_insert_time

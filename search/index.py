@@ -18,7 +18,8 @@ def _format_gender(gender_id):
 
 
 def _format_sizes(sizes, quantities):
-    pass
+    inventory = zip(sizes, quantities)
+    return ' '.join(map(lambda x: x[0], filter(lambda x: x[1] > 0, inventory)))
 
 
 def create_product_index():

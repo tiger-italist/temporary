@@ -1,5 +1,6 @@
 from elasticsearch_dsl.connections import connections
 import pymysql
+import certifi
 
 
 es, db = None, None
@@ -11,7 +12,9 @@ def es_connect():
         return es
 
     connections.create_connection(
-        hosts=['localhost'],
+        hosts=['https://search-products-test-c3og36q3enkihz6fyh3afrkbwu.us-west-2.es.amazonaws.com'],
+        port=443,
+        use_ssl=True
     )
     es = connections
     return es
@@ -26,7 +29,8 @@ def db_connect():
         port=1433,
         user='ovojo',
         password='pMubciyfaFH7d3',
-        db='italist'
+        db='italist',
+        charset='utf8'
     )
     return db
 

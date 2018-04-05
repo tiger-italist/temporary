@@ -1,2 +1,3 @@
-pymysql==0.8.0
+certifi
 elasticsearch-dsl
+pymysql==0.8.0

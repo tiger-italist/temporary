@@ -23,7 +23,6 @@ def _format_sizes(sizes, quantities):
 
 
 def create_product_index():
-    es_connect()
     products = Index('products')
     products.settings(
         number_of_shards=1,
@@ -68,7 +67,6 @@ def index_product(
 
 
 def index_products(batchsize=1000):
-    es_connect()
     cnx = db_connect()
     try:
         with cnx.cursor() as cursor:
@@ -109,5 +107,6 @@ def index_products(batchsize=1000):
 
 
 if __name__ == '__main__':
+    es_connect()
     create_product_index()
     index_products(1000)

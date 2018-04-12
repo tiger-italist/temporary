@@ -1,0 +1,25 @@
+{
+  "sort": [
+    {"insert_time": {"order": "desc"}},
+    {"photo_quality": {"order": "desc"}},
+    "_score"
+  ],
+  "query": {
+    "bool": {
+      "filter": [
+        {"terms": {"category_ids": [108]}},
+        {"terms": {"brand_id": [481]}},
+        {"terms": {"gender": ["F"]}},
+        {"terms": {"season": ["FW17"]}},
+        {"terms": {"sizes": ["M"]}}
+      ],
+      "minimum_should_match": 1,
+      "should": [
+        {"match": {"model": {"query": "leather", "boost": 2.0}}},
+        {"match": {"brand": {"query": "leather", "boost": 2.0}}},
+        {"match": {"categories": "leather"}},
+        {"match": {"description": "leather"}}
+      ]
+    }
+  }
+}

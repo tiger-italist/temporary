@@ -14,7 +14,7 @@ def _format_season(season, year):
 
 
 def _format_gender(gender_id):
-    return 'M' if gender_id == 1 else 'F' if gender_id == 2 else 'M F'
+    return ['M'] if gender_id == 1 else ['F'] if gender_id == 2 else ['M', 'F']
 
 
 def _format_sizes(sizes, quantities):
@@ -57,7 +57,7 @@ def index_product(
             round(float(rrp_eur_ex_tax) * (100 - reduction) / 100.0, 2) if reduction
             else round(float(rrp_eur_ex_tax), 2)
         )
-        product.discount_percentage = reduction
+        product.discount_percentage = reduction or 0
         product.description = description
         product.insert_time = pv_insert_time
         product.photo_quality = photo_quality_store
